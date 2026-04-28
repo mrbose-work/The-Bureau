@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bureau — Go-to-Market Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:  #080808;
+    --red:    #8B0000;
+    --gold:   #E8B800;
+    --white:  #F5F5F5;
+    --dim:    #999;
+    --panel:  #0F0F0F;
+    --panel2: #131313;
+    --border: #1C1C1C;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Libre Baskerville', serif;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.7;
+  }
+
+  .board {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 64px 48px 120px;
+  }
+
+  /* ── LABEL ── */
+  .label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 20px;
+    margin-top: 72px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ══════════════════════
+     HEADER
+  ══════════════════════ */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 36px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .wordmark {
+    font-family: 'Fondamento', serif;
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.06em;
+  }
+  .wordmark .b { color: var(--red); }
+
+  .header-meta {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: right;
+    line-height: 2.2;
+    padding-bottom: 6px;
+  }
+
+  /* ══════════════════════
+     INTRO
+  ══════════════════════ */
+  .intro {
+    padding: 56px 0 0;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .intro-headline {
+    font-family: 'Fondamento', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--white);
+    max-width: 620px;
+    margin-bottom: 20px;
+  }
+
+  .intro-headline em { color: var(--red); font-style: italic; }
+
+  .intro-body {
+    font-size: 13px;
+    line-height: 1.9;
+    color: #b0b0b0;
+    font-style: italic;
+    max-width: 560px;
+  }
+
+  /* ══════════════════════
+     MANDATE BAND
+  ══════════════════════ */
+  .mandate {
+    background: var(--red);
+    padding: 44px 52px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 48px;
+    animation: fadeUp 0.8s 0.15s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mandate::after {
+    content: 'GTM';
+    position: absolute;
+    right: -20px;
+    bottom: -40px;
+    font-family: 'Fondamento', serif;
+    font-size: 160px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.08);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .mandate-item {}
+
+  .mandate-num {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .mandate-title {
+    font-family: 'Fondamento', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--white);
+    display: block;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .mandate-body {
+    font-size: 11px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.75);
+    font-style: italic;
+  }
+
+  /* ══════════════════════
+     ICP — IDEAL CLIENT
+  ══════════════════════ */
+  .icp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .icp-card {
+    background: var(--panel);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    border-left: 3px solid var(--border);
+  }
+
+  .icp-card.primary   { border-left-color: var(--red); }
+  .icp-card.secondary { border-left-color: var(--gold); }
+
+  .icp-bg {
+    position: absolute;
+    right: -12px;
+    bottom: -24px;
+    font-family: 'Fondamento', serif;
+    font-size: 120px;
+    color: rgba(255,255,255,0.025);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .icp-tag {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .icp-name {
+    font-family: 'Fondamento', serif;
+    font-size: 24px;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  .icp-card.primary   .icp-name { color: var(--red); }
+  .icp-card.secondary .icp-name { color: var(--gold); }
+
+  .icp-desc {
+    font-size: 12px;
+    line-height: 1.85;
+    color: #aaa;
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+
+  .icp-traits {
+    list-style: none;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+  }
+
+  .icp-traits li {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #999;
+    padding: 6px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .icp-traits li::before {
+    content: '—';
+    color: var(--red);
+    flex-shrink: 0;
+    font-size: 9px;
+  }
+
+  .icp-card.secondary .icp-traits li::before { color: var(--gold); }
+
+  /* ══════════════════════
+     PHASE TIMELINE
+  ══════════════════════ */
+  .phase-section {
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  .phase-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3px;
+  }
+
+  .phase-card {
+    background: var(--panel);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .phase-header {
+    padding: 28px 32px 24px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .ph-1 .phase-header { border-top: 3px solid var(--red); }
+  .ph-2 .phase-header { border-top: 3px solid var(--gold); }
+  .ph-3 .phase-header { border-top: 3px solid var(--white); }
+
+  .phase-num {
+    font-family: 'Fondamento', serif;
+    font-size: 56px;
+    color: rgba(255,255,255,0.04);
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    line-height: 1;
+  }
+
+  .phase-period {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .ph-1 .phase-period { color: var(--red); }
+  .ph-2 .phase-period { color: var(--gold); }
+  .ph-3 .phase-period { color: #888; }
+
+  .phase-name {
+    font-family: 'Fondamento', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--white);
+    display: block;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .phase-goal {
+    font-size: 11px;
+    font-style: italic;
+    color: #aaa;
+    line-height: 1.7;
+  }
+
+  .phase-body {
+    padding: 24px 32px 32px;
+  }
+
+  .phase-item {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .phase-item:last-child { border-bottom: none; }
+
+  .phase-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .ph-1 .phase-dot { background: var(--red); }
+  .ph-2 .phase-dot { background: var(--gold); }
+  .ph-3 .phase-dot { background: #555; }
+
+  .phase-item-text {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10.5px;
+    line-height: 1.7;
+    color: #aaa;
+    letter-spacing: 0.05em;
+  }
+
+  /* ══════════════════════
+     CHANNELS
+  ══════════════════════ */
+  .channels-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 3px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .channel-card {
+    background: var(--panel);
+    padding: 32px 24px 28px;
+    text-align: center;
+    position: relative;
+  }
+
+  .channel-icon {
+    font-family: 'Fondamento', serif;
+    font-size: 32px;
+    display: block;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  .ch-1 .channel-icon { color: var(--red); }
+  .ch-2 .channel-icon { color: var(--gold); }
+  .ch-3 .channel-icon { color: #555; }
+  .ch-4 .channel-icon { color: var(--white); opacity: 0.4; }
+  .ch-5 .channel-icon { color: var(--red); opacity: 0.7; }
+
+  .channel-name {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--white);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .channel-role {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .ch-1 .channel-role { color: var(--red); }
+  .ch-2 .channel-role { color: var(--gold); }
+  .ch-3 .channel-role { color: #444; }
+  .ch-4 .channel-role { color: #444; }
+  .ch-5 .channel-role { color: var(--red); opacity: 0.8; }
+
+  .channel-desc {
+    font-size: 10.5px;
+    line-height: 1.75;
+    color: #aaa;
+    font-style: italic;
+  }
+
+  /* ══════════════════════
+     CONTENT STRATEGY
+  ══════════════════════ */
+  .content-section {
+    animation: fadeUp 0.8s 0.32s ease both;
+  }
+
+  .content-table {
+    background: var(--panel);
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .content-table thead tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .content-table th {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--dim);
+    padding: 16px 24px;
+    text-align: left;
+  }
+
+  .content-table tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.2s;
+  }
+
+  .content-table tbody tr:hover { background: rgba(255,255,255,0.015); }
+
+  .content-table td {
+    padding: 18px 24px;
+    font-size: 11px;
+    line-height: 1.7;
+    vertical-align: top;
+  }
+
+  .ct-type {
+    font-family: 'Fondamento', serif;
+    font-size: 14px;
+    color: var(--white);
+  }
+
+  .ct-platform {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .ct-purpose {
+    color: #aaa;
+    font-style: italic;
+  }
+
+  .ct-freq {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  /* ══════════════════════
+     KPI TABLE
+  ══════════════════════ */
+  .kpi-section {
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 3px;
+  }
+
+  .kpi-cell {
+    background: var(--panel);
+    padding: 28px 16px;
+    text-align: center;
+    border-top: 2px solid var(--border);
+  }
+
+  .kpi-cell.highlight { border-top-color: var(--red); }
+  .kpi-cell.highlight-gold { border-top-color: var(--gold); }
+
+  .kpi-value {
+    font-family: 'Fondamento', serif;
+    font-size: 28px;
+    font-weight: 400;
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .kpi-cell.highlight .kpi-value { color: var(--red); }
+  .kpi-cell.highlight-gold .kpi-value { color: var(--gold); }
+  .kpi-cell:not(.highlight):not(.highlight-gold) .kpi-value { color: rgba(255,255,255,0.3); }
+
+  .kpi-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #888;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .kpi-timeframe {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 8.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #666;
+    display: block;
+  }
+
+  /* ══════════════════════
+     PRICING RATIONALE
+  ══════════════════════ */
+  .pricing-section {
+    animation: fadeUp 0.8s 0.37s ease both;
+  }
+
+  .pricing-strategy {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+  }
+
+  .ps-card {
+    background: var(--panel);
+    padding: 36px 36px;
+  }
+
+  .ps-title {
+    font-family: 'Fondamento', serif;
+    font-size: 20px;
+    color: var(--white);
+    display: block;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .ps-body {
+    font-size: 12px;
+    line-height: 1.85;
+    color: #aaa;
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+
+  .ps-points {
+    list-style: none;
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+  }
+
+  .ps-points li {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: #999;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .ps-points li::before { content: '→'; color: var(--red); font-size: 9px; flex-shrink: 0; }
+
+  /* ══════════════════════
+     CLOSING BAND
+  ══════════════════════ */
+  .band {
+    background: var(--red);
+    padding: 40px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .band-text {
+    font-family: 'Fondamento', serif;
+    font-size: clamp(15px, 2vw, 20px);
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--white);
+    max-width: 580px;
+  }
+
+  .band-mark {
+    font-family: 'Fondamento', serif;
+    font-size: 48px;
+    color: rgba(0,0,0,0.12);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ══════════════════════
+     FOOTER
+  ══════════════════════ */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .footer-mark {
+    font-family: 'Fondamento', serif;
+    font-size: 22px;
+    color: rgba(255,255,255,0.12);
+    letter-spacing: 0.06em;
+  }
+  .footer-mark .b { color: var(--red); opacity: 1; }
+
+  .footer-right {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: right;
+    line-height: 2;
+  }
+
+  .ornament {
+    text-align: center;
+    font-family: 'Fondamento', serif;
+    font-size: 14px;
+    color: var(--gold);
+    opacity: 0.25;
+    letter-spacing: 0.8em;
+    margin: 56px 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="board">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="wordmark"><span class="b">B</span>ureau</div>
+    <div class="header-meta">
+      Go-to-Market Plan<br>
+      v1.0 · Kolkata, India
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <div class="intro-headline">
+      How Bureau enters<br>
+      the <em>market</em>.
+    </div>
+    <div class="intro-body">
+      This plan defines who Bureau speaks to first, through which channels, and in what sequence — so that every early action compounds into a position that cannot be easily replicated. Quiet, deliberate, and built to last.
+    </div>
+  </div>
+
+  <!-- MANDATE -->
+  <div class="label">00 — The Three Mandates</div>
+  <div class="mandate">
+    <div class="mandate-item">
+      <span class="mandate-num">Mandate I</span>
+      <span class="mandate-title">Build the proof before the pitch.</span>
+      <div class="mandate-body">No cold outreach without visible work. The Notion showcase, the Instagram feed, and the website must exist before Bureau speaks to anyone.</div>
+    </div>
+    <div class="mandate-item">
+      <span class="mandate-num">Mandate II</span>
+      <span class="mandate-title">Start local. Scale without limits.</span>
+      <div class="mandate-body">Kolkata is the anchor. The first clients, the first case studies, and the first trust are built here — then the work travels.</div>
+    </div>
+    <div class="mandate-item">
+      <span class="mandate-num">Mandate III</span>
+      <span class="mandate-title">Let the work do the talking.</span>
+      <div class="mandate-body">Bureau's marketing is Bureau's work — the feed, the documents, the templates. Every output is a portfolio piece before it is a product.</div>
+    </div>
+  </div>
+
+  <!-- ICP -->
+  <div class="label">01 — Ideal Client Profile</div>
+  <div class="icp-grid">
+
+    <div class="icp-card primary">
+      <span class="icp-bg">I</span>
+      <span class="icp-tag">Primary Profile · Launch Phase</span>
+      <span class="icp-name">The Ambitious Founder</span>
+      <p class="icp-desc">
+        Early-stage business owners and solo operators in Kolkata — running real businesses but doing everything manually. They have the ambition but not the infrastructure. Systems are the entry point; Signal and Front follow naturally.
+      </p>
+      <ul class="icp-traits">
+        <li>0–5 years in business, operating without formal systems</li>
+        <li>Relying on WhatsApp, notebooks, or scattered spreadsheets</li>
+        <li>Aware their brand presence doesn't match their actual quality</li>
+        <li>Budget-conscious but willing to invest when value is clear</li>
+        <li>Likely in: consulting, coaching, F&amp;B, retail, creative services</li>
+        <li>Referral-driven — one good client becomes three</li>
+      </ul>
+    </div>
+
+    <div class="icp-card secondary">
+      <span class="icp-bg">II</span>
+      <span class="icp-tag">Secondary Profile · Online Reach</span>
+      <span class="icp-name">The Notion-Curious Professional</span>
+      <p class="icp-desc">
+        Freelancers, consultants, and knowledge workers anywhere in India who have discovered Notion but can't get it to work for them. They find Bureau through templates, content, and the Notion community — and may never meet us in person.
+      </p>
+      <ul class="icp-traits">
+        <li>Remote-first, digitally fluent, India-wide</li>
+        <li>Already trying to self-build their operating system</li>
+        <li>Willing to pay for a template that saves them weeks of work</li>
+        <li>Entry via Blueprints; upsell path to Bespoke is natural</li>
+        <li>Likely in: design, writing, development, education, finance</li>
+        <li>Feeds Bureau's passive income and national reputation</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- PHASE TIMELINE -->
+  <div class="label">02 — Launch Phases</div>
+  <div class="phase-section">
+    <div class="phase-row">
+
+      <!-- PHASE 1 -->
+      <div class="phase-card ph-1">
+        <div class="phase-header">
+          <span class="phase-num">I</span>
+          <span class="phase-period">Month 1 — Foundation</span>
+          <span class="phase-name">Build the proof.</span>
+          <div class="phase-goal">Before Bureau speaks to anyone, Bureau must have something to show. This phase is entirely production — no outreach.</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Publish the Bureau website on Wix — hero, three services, contact form</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Launch the showcase Notion workspace — publicly shareable, visually polished</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Open Bureau Instagram — post 6 foundational content pieces before the first follow request</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Create and list the first two Blueprints templates — priced to sell</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Set up the Bureau LinkedIn page with positioning statement and first post</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Define the intake process — how a lead becomes a brief becomes a project</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 2 -->
+      <div class="phase-card ph-2">
+        <div class="phase-header">
+          <span class="phase-num">II</span>
+          <span class="phase-period">Months 2–3 — First Clients</span>
+          <span class="phase-name">Earn the first three.</span>
+          <div class="phase-goal">Outreach begins — but carefully. The first three clients are chosen, not acquired. They become Bureau's proof of concept.</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Identify 3 businesses in Kolkata personally — warm connections or observed gaps</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Offer a Bureau Systems audit — free initial conversation, paid engagement if there's fit</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Deliver at an unusually high standard — the quality of the work is the strategy</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Ask for one referral from each satisfied client — not a testimonial, a referral</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Begin posting on Instagram consistently — 3 posts per week minimum</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Join and contribute to the Notion Creators community — presence, not promotion</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 3 -->
+      <div class="phase-card ph-3">
+        <div class="phase-header">
+          <span class="phase-num">III</span>
+          <span class="phase-period">Months 4–6 — Compounding</span>
+          <span class="phase-name">Let it compound.</span>
+          <div class="phase-goal">By this point, Bureau has case studies, a live feed, and a reputation beginning to form. The goal is to systematise what's working.</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Publish the first Bureau case study — Notion workspace before/after, documented</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Expand Blueprints to 4–6 templates across different use cases</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Introduce Bureau Signal to existing Systems clients — natural conversation</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Begin LinkedIn long-form content — 1 article per fortnight on operations &amp; brand</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Reassess pricing — raise Bespoke floor if demand justifies it</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot"></div>
+            <div class="phase-item-text">Target a second city — Mumbai or Bengaluru — for one Bespoke engagement</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CHANNELS -->
+  <div class="label">03 — Acquisition Channels</div>
+  <div class="channels-grid">
+
+    <div class="channel-card ch-1">
+      <span class="channel-icon">Ig</span>
+      <span class="channel-name">Instagram</span>
+      <span class="channel-role">Primary · Brand Building</span>
+      <p class="channel-desc">The Bureau feed is the portfolio. Every post is a case study, a process reveal, or a perspective. Kolkata businesses discover Bureau here.</p>
+    </div>
+
+    <div class="channel-card ch-2">
+      <span class="channel-icon">In</span>
+      <span class="channel-name">LinkedIn</span>
+      <span class="channel-role">Primary · Authority</span>
+      <p class="channel-desc">Long-form content on operations, systems thinking, and brand. Targets the founder and the decision-maker. Slower burn, higher intent.</p>
+    </div>
+
+    <div class="channel-card ch-3">
+      <span class="channel-icon">No</span>
+      <span class="channel-name">Notion Community</span>
+      <span class="channel-role">Secondary · Templates</span>
+      <p class="channel-desc">Genuine participation in Notion's creator ecosystem. The Blueprints templates are listed and discoverable. Passive inbound for Systems.</p>
+    </div>
+
+    <div class="channel-card ch-4">
+      <span class="channel-icon">⟡</span>
+      <span class="channel-name">Word of Mouth</span>
+      <span class="channel-role">Tertiary · Highest Value</span>
+      <p class="channel-desc">The most important channel, and the one Bureau cannot engineer — only earn. The first three clients, done extraordinarily well, build this.</p>
+    </div>
+
+    <div class="channel-card ch-5">
+      <span class="channel-icon">Bw</span>
+      <span class="channel-name">Bureau Website</span>
+      <span class="channel-role">Anchor · Live Portfolio</span>
+      <p class="channel-desc">The website is not just a contact page — it is a showcase. Every service explained, every standard demonstrated, built on Wix to Bureau's own brief.</p>
+    </div>
+
+  </div>
+
+  <!-- CONTENT STRATEGY -->
+  <div class="label">04 — Content Strategy</div>
+  <div class="content-section">
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>Content Type</th>
+          <th>Platform</th>
+          <th>Purpose</th>
+          <th>Frequency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="ct-type">The Notion Showcase</span></td>
+          <td><span class="ct-platform">Instagram + Notion</span></td>
+          <td><span class="ct-purpose">Proof of craft. Shows what a Bureau-built workspace actually looks like. The most direct conversion tool.</span></td>
+          <td><span class="ct-freq">Ongoing — updated with every new build</span></td>
+        </tr>
+        <tr>
+          <td><span class="ct-type">Process Reveals</span></td>
+          <td><span class="ct-platform">Instagram Reels</span></td>
+          <td><span class="ct-purpose">Short videos showing a messy client situation being structured. Highly shareable. Builds desire and demonstrates value simultaneously.</span></td>
+          <td><span class="ct-freq">1× per week</span></td>
+        </tr>
+        <tr>
+          <td><span class="ct-type">Brand Perspectives</span></td>
+          <td><span class="ct-platform">Instagram Carousel</span></td>
+          <td><span class="ct-purpose">Bureau's point of view on operations, brand, and what good looks like. Positions Bureau as an authority, not just a vendor.</span></td>
+          <td><span class="ct-freq">2× per week</span></td>
+        </tr>
+        <tr>
+          <td><span class="ct-type">Long-form Articles</span></td>
+          <td><span class="ct-platform">LinkedIn</span></td>
+          <td><span class="ct-purpose">Deep dives on systems thinking, Kolkata's business landscape, and operational excellence. Targets founders and senior professionals.</span></td>
+          <td><span class="ct-freq">1× per fortnight</span></td>
+        </tr>
+        <tr>
+          <td><span class="ct-type">Template Drops</span></td>
+          <td><span class="ct-platform">Instagram + Notion</span></td>
+          <td><span class="ct-purpose">New Blueprints announced with full visual breakdown. Creates event-like moments and drives template revenue passively.</span></td>
+          <td><span class="ct-freq">1× per month</span></td>
+        </tr>
+        <tr>
+          <td><span class="ct-type">Case Studies</span></td>
+          <td><span class="ct-platform">LinkedIn + Website</span></td>
+          <td><span class="ct-purpose">Client work documented in depth — the problem, the approach, the outcome. The highest-converting content Bureau can produce.</span></td>
+          <td><span class="ct-freq">1× per client engagement</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- KPIs -->
+  <div class="label">05 — Success Metrics · Month 6</div>
+  <div class="kpi-section">
+    <div class="kpi-grid">
+      <div class="kpi-cell highlight">
+        <span class="kpi-value">3</span>
+        <span class="kpi-label">Bespoke Clients</span>
+        <span class="kpi-timeframe">Kolkata, completed</span>
+      </div>
+      <div class="kpi-cell highlight">
+        <span class="kpi-value">6</span>
+        <span class="kpi-label">Blueprints Listed</span>
+        <span class="kpi-timeframe">Notion community</span>
+      </div>
+      <div class="kpi-cell highlight-gold">
+        <span class="kpi-value">₹1.2L</span>
+        <span class="kpi-label">Monthly Revenue</span>
+        <span class="kpi-timeframe">Target by month 6</span>
+      </div>
+      <div class="kpi-cell highlight-gold">
+        <span class="kpi-value">1K</span>
+        <span class="kpi-label">Instagram Followers</span>
+        <span class="kpi-timeframe">Engaged, not inflated</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-value">1</span>
+        <span class="kpi-label">Signal Client</span>
+        <span class="kpi-timeframe">Upsell from Systems</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-value">1</span>
+        <span class="kpi-label">City Expanded</span>
+        <span class="kpi-timeframe">Mumbai or Bengaluru</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING RATIONALE -->
+  <div class="label">06 — Pricing Rationale</div>
+  <div class="pricing-section">
+    <div class="pricing-strategy">
+
+      <div class="ps-card">
+        <span class="ps-title">Why these prices, in Kolkata.</span>
+        <p class="ps-body">
+          Bureau's pricing is calibrated to the Kolkata market — competitive enough to remove the cost objection, high enough to signal that this is not commodity work. The goal in the launch phase is not maximum revenue. It is maximum proof.
+        </p>
+        <ul class="ps-points">
+          <li>Blueprints at ₹499–₹2,999 create zero-friction entry points</li>
+          <li>Bespoke at ₹8,000–₹25,000 is accessible to serious founders</li>
+          <li>Prices are reviewed upward after the first three case studies</li>
+          <li>Signal and Front are positioned as premium — always</li>
+        </ul>
+      </div>
+
+      <div class="ps-card">
+        <span class="ps-title">The upsell architecture.</span>
+        <p class="ps-body">
+          Bureau is not designed for one-time transactions. Every engagement is structured to open the next door. A client who buys a Blueprint is shown what Bespoke looks like. A client with a Bespoke OS is asked if their brand reflects it.
+        </p>
+        <ul class="ps-points">
+          <li>Blueprint → Bespoke: Show the gap between template and custom</li>
+          <li>Systems → Signal: Ask if the brand matches the operation</li>
+          <li>Signal → Front: Ask if the website matches the brand</li>
+          <li>All three: The complete Bureau client — the long-term goal</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- BAND -->
+  <div class="band">
+    <div class="band-text">
+      Bureau does not need a hundred clients. It needs ten who tell ten more — each one arrived at because the work was done at a standard that demanded to be shared.
+    </div>
+    <div class="band-mark">Bureau</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top: 3px;">
+    <div class="footer-mark"><span class="b">B</span>ureau</div>
+    <div class="footer-right">
+      Built in Kolkata<br>
+      For the world
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

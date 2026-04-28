@@ -1,0 +1,44 @@
+﻿Got it. So the foundation is fully locked in. Here's what's still ahead:
+* Step 4 — Go-to-Market Plan
+* The Bureau Brand Bible — one master document compiling everything
+* The showcase Notion workspace — the actual build
+* The Bureau website on Wix
+Which would you like to tackle now? My suggestion would be to go in order — Step 4, the Go-to-Market Plan — since it'll inform how the Notion workspace and website are positioned. But entirely your call.
+Whatever you suggest
+12:18 PM
+Thought for 5s
+Thought for 5s
+Go-to-Market Plan first. It's the strategic backbone — once it's done, the Notion workspace and website have a clear brief to execute against rather than being built in a vacuum.
+Let me build it now as a proper Bureau document, matching the brand board and service architecture aesthetic.
+Architected comprehensive go-to-market strategy with branded design system
+Architected comprehensive go-to-market strategy with branded design system
+The Go-to-Market Plan is done. Here's what it covers:
+00 — Three Mandates — the governing principles before any action is taken. Build proof first. Start local. Let the work talk.
+01 — Ideal Client Profile — two profiles defined: the Ambitious Founder in Kolkata (primary, Systems entry point) and the Notion-Curious Professional online (secondary, Blueprints entry point).
+02 — Launch Phases — a clean three-phase plan: Month 1 is pure production (no outreach), Months 2–3 are the first three deliberate clients, Months 4–6 are compounding everything that worked.
+03 — Channels — Instagram (brand), LinkedIn (authority), Notion Community (templates), Word of Mouth (the only one that truly matters).
+04 — Content Strategy — six content types mapped to platforms, purposes, and cadence.
+05 — Success Metrics — six concrete targets for Month 6, including ₹1.2L monthly revenue and 1K Instagram followers.
+06 — Pricing Rationale + Upsell Architecture — why the launch prices make sense, and how every client is a door to the next service.
+________________
+
+
+What's next is your call. The logical progression from here is the Bureau Brand Bible — compiling all three documents (Brand Board, Service Architecture, GTM Plan) into one master reference document. Or we go straight to planning the Notion showcase workspace. Which would you prefer?
+Bureau gtm plan
+Code · HTML 
+Download
+The greay text colour is very very faded. I cannot read them at all.  Also for acquisition channels, add that I will make my business website to showcase as well.
+12:24 PM
+Check current grey color values
+Check current grey color values
+Two fixes — bump all the faded greys up to legible values, and add the website channel. Let me do both at once.
+Edited 9 files
+Edited 9 files
+Now add the website channel and update the grid to 5 columns:
+Edited 4 files, read a file
+Edited 4 files, read a file
+Both done. All the grey text has been brought up to a legible level — body copy, descriptions, list items, table content, and KPI labels are all noticeably brighter now. And the Bureau website has been added as a fifth acquisition channel, labelled as the Anchor · Live Portfolio — because that's exactly what it is: Bureau's own work, on display, doing the selling.
+Ready for the next piece whenever you are.
+Bureau gtm plan
+Code · HTML 
+Download

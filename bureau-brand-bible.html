@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bureau — Brand Bible</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:  #080808;
+    --red:    #B22222;
+    --gold:   #E8B800;
+    --white:  #F5F5F5;
+    --dim:    #bbb;
+    --panel:  #0F0F0F;
+    --panel2: #131313;
+    --border: #1C1C1C;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Libre Baskerville', serif;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.7;
+  }
+
+  .bible {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 64px 48px 120px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 20px;
+    margin-top: 72px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── CHAPTER DIVIDER ── */
+  .chapter {
+    margin-top: 120px;
+    padding-top: 56px;
+    border-top: 3px solid var(--red);
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .chapter-num {
+    font-family: 'Fondamento', serif;
+    font-size: 120px;
+    font-weight: 400;
+    color: rgba(178,34,34,0.2);
+    line-height: 1;
+    display: block;
+    margin-bottom: -24px;
+  }
+
+  .chapter-title {
+    font-family: 'Fondamento', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .chapter-subtitle {
+    font-size: 14px;
+    line-height: 1.9;
+    color: #ccc;
+    font-style: italic;
+    max-width: 560px;
+    margin-bottom: 0;
+  }
+
+  /* ══════════════════════
+     COVER
+  ══════════════════════ */
+  .cover {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 80px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .cover-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 48px;
+  }
+
+  .cover-wordmark {
+    font-family: 'Fondamento', serif;
+    font-size: clamp(80px, 14vw, 160px);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  .cover-wordmark .b { color: var(--red); }
+
+  .cover-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 0.6em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 64px;
+  }
+
+  .cover-philosophy {
+    font-family: 'Fondamento', serif;
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.4;
+    margin-bottom: 48px;
+  }
+
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 48px;
+  }
+
+  .cover-meta {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dim);
+    line-height: 2.4;
+  }
+
+  /* ══════════════════════
+     TABLE OF CONTENTS
+  ══════════════════════ */
+  .toc {
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+  }
+
+  .toc-item {
+    background: var(--panel);
+    padding: 36px 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    border-left: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  .toc-item:hover { border-left-color: var(--red); }
+
+  .toc-item-num {
+    font-family: 'Fondamento', serif;
+    font-size: 36px;
+    color: rgba(178,34,34,0.45);
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 48px;
+  }
+
+  .toc-item-title {
+    font-family: 'Fondamento', serif;
+    font-size: 18px;
+    color: var(--white);
+    display: block;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .toc-item-desc {
+    font-size: 12px;
+    line-height: 1.8;
+    color: #ccc;
+    font-style: italic;
+  }
+
+  /* ══════════════════════
+     CONTENT BLOCKS
+  ══════════════════════ */
+
+  /* Key-value pairs */
+  .kv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+  }
+
+  .kv-card {
+    background: var(--panel);
+    padding: 36px 32px;
+  }
+
+  .kv-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .kv-value {
+    font-family: 'Fondamento', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.4;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .kv-desc {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #ccc;
+    font-style: italic;
+  }
+
+  .kv-full {
+    grid-column: 1 / -1;
+  }
+
+  /* Band / quote strip */
+  .band {
+    background: var(--red);
+    padding: 48px 52px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .band::after {
+    content: '"';
+    font-family: 'Fondamento', serif;
+    font-size: 280px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.1);
+    position: absolute;
+    right: 24px;
+    top: -24px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .band-text {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(15px, 2.2vw, 20px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.75;
+    color: var(--white);
+    max-width: 660px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Colour swatches */
+  .colour-row {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr 1.5fr;
+    gap: 3px;
+  }
+
+  .swatch {
+    padding: 32px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 160px;
+  }
+
+  .swatch-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .swatch-hex {
+    font-family: monospace;
+    font-size: 10px;
+    opacity: 0.45;
+    display: block;
+  }
+
+  .swatch-usage {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    color: inherit;
+    opacity: 0.5;
+    margin-top: 8px;
+    line-height: 1.7;
+  }
+
+  .sw-black { background: #080808; border: 1px solid #1c1c1c; }
+  .sw-red   { background: #8B0000; }
+  .sw-gold  { background: #E8B800; color: #080808; }
+  .sw-white { background: #F5F5F5; color: #080808; }
+
+  /* Typography showcase */
+  .type-block {
+    background: var(--panel);
+    padding: 40px 40px;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    border-left: 2px solid var(--red);
+  }
+
+  .type-specimen {
+    font-family: 'Fondamento', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+
+  .type-specimen .b { color: var(--red); }
+
+  .type-info {
+    text-align: right;
+    min-width: 200px;
+  }
+
+  .type-name {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .type-role {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #ccc;
+    line-height: 1.65;
+    max-width: 220px;
+    margin-left: auto;
+  }
+
+  .type-block-body {
+    background: var(--panel);
+    padding: 36px 40px;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    border-left: 2px solid var(--gold);
+  }
+
+  .type-specimen-body {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    line-height: 1.95;
+    color: #ccc;
+    max-width: 480px;
+    font-style: italic;
+  }
+
+  .type-block-ui {
+    background: var(--panel);
+    padding: 36px 40px;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    border-left: 2px solid var(--white);
+  }
+
+  .type-specimen-ui {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  /* B Mark variants */
+  .bmark-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3px;
+  }
+
+  .bmark-card {
+    padding: 48px 24px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .bmark-primary   { background: var(--red); }
+  .bmark-secondary { background: var(--black); border: 1px solid var(--border); }
+  .bmark-accent    { background: var(--panel); border: 1px solid var(--border); }
+
+  .bmark-b {
+    font-family: 'Fondamento', serif;
+    font-size: 88px;
+    font-weight: 400;
+    line-height: 1;
+    display: block;
+  }
+
+  .bmark-ureau {
+    font-family: 'Fondamento', serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.5em;
+    text-transform: lowercase;
+    display: block;
+    padding-left: 0.5em;
+  }
+
+  .bmark-usage {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-top: 20px;
+    opacity: 0.4;
+    color: var(--white);
+  }
+
+  /* Service cards */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3px;
+  }
+
+  .service-card {
+    background: var(--panel);
+    padding: 44px 36px 40px;
+    position: relative;
+    overflow: hidden;
+    border-top: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sc-systems { border-top-color: var(--red); }
+  .sc-signal  { border-top-color: var(--gold); }
+  .sc-front   { border-top-color: var(--white); }
+
+  .service-bg-letter {
+    position: absolute;
+    right: -16px;
+    bottom: -32px;
+    font-family: 'Fondamento', serif;
+    font-size: 140px;
+    font-weight: 400;
+    line-height: 1;
+    pointer-events: none;
+    opacity: 0.08;
+    color: var(--white);
+  }
+
+  .service-num {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .service-name {
+    font-family: 'Fondamento', serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .sc-systems .service-name { color: var(--red); }
+  .sc-signal  .service-name { color: var(--gold); }
+  .sc-front   .service-name { color: var(--white); }
+
+  .service-tagline {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #ccc;
+    font-style: italic;
+    margin-bottom: 32px;
+    flex: 1;
+  }
+
+  .tier-block {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    margin-top: auto;
+  }
+
+  .tier { margin-bottom: 16px; }
+  .tier:last-child { margin-bottom: 0; }
+
+  .tier-name {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .tier-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .dot-red   { background: var(--red); }
+  .dot-gold  { background: var(--gold); }
+  .dot-white { background: var(--white); }
+
+  .tier-desc {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #ccc;
+    font-style: italic;
+    padding-left: 15px;
+  }
+
+  /* Client Journey */
+  .journey-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: center;
+    background: var(--panel);
+    overflow: hidden;
+  }
+
+  .journey-step {
+    padding: 40px 32px;
+    text-align: center;
+  }
+
+  .journey-step-num {
+    font-family: 'Fondamento', serif;
+    font-size: 40px;
+    color: rgba(255,255,255,0.15);
+    display: block;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .journey-step-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .journey-step-service {
+    font-family: 'Fondamento', serif;
+    font-size: 17px;
+    display: block;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .j1 .journey-step-service { color: var(--red); }
+  .j2 .journey-step-service { color: var(--gold); }
+  .j3 .journey-step-service { color: var(--white); }
+
+  .journey-step-desc {
+    font-size: 12px;
+    line-height: 1.8;
+    color: #ccc;
+    font-style: italic;
+  }
+
+  .journey-arrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    color: var(--border);
+    padding: 0 8px;
+    flex-shrink: 0;
+  }
+
+  /* Pricing */
+  .pricing-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 3px;
+  }
+
+  .price-cell {
+    background: var(--panel);
+    padding: 28px 20px;
+    text-align: center;
+  }
+
+  .price-tier {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .price-amount {
+    font-family: 'Fondamento', serif;
+    font-size: 22px;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1.1;
+  }
+
+  .price-note {
+    font-size: 11px;
+    color: #ccc;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .pc-1 .price-amount { color: var(--red); }
+  .pc-2 .price-amount { color: var(--red); opacity: 0.7; }
+  .pc-3 .price-amount { color: var(--gold); }
+  .pc-4 .price-amount { color: var(--gold); opacity: 0.7; }
+  .pc-5 .price-amount { color: var(--white); opacity: 0.6; }
+
+  /* Phase timeline */
+  .phase-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3px;
+  }
+
+  .phase-card {
+    background: var(--panel);
+    overflow: hidden;
+  }
+
+  .phase-header {
+    padding: 28px 32px 24px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .ph-1 .phase-header { border-top: 3px solid var(--red); }
+  .ph-2 .phase-header { border-top: 3px solid var(--gold); }
+  .ph-3 .phase-header { border-top: 3px solid var(--white); }
+
+  .phase-num {
+    font-family: 'Fondamento', serif;
+    font-size: 56px;
+    color: rgba(255,255,255,0.15);
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    line-height: 1;
+  }
+
+  .phase-period {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .ph-1 .phase-period { color: var(--red); }
+  .ph-2 .phase-period { color: var(--gold); }
+  .ph-3 .phase-period { color: #aaa; }
+
+  .phase-name {
+    font-family: 'Fondamento', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--white);
+    display: block;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .phase-goal {
+    font-size: 12px;
+    font-style: italic;
+    color: #ccc;
+    line-height: 1.7;
+  }
+
+  .phase-body {
+    padding: 24px 32px 32px;
+  }
+
+  .phase-item {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .phase-item:last-child { border-bottom: none; }
+
+  .phase-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .ph-1 .phase-dot { background: var(--red); }
+  .ph-2 .phase-dot { background: var(--gold); }
+  .ph-3 .phase-dot { background: #555; }
+
+  .phase-item-text {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #ccc;
+    letter-spacing: 0.05em;
+  }
+
+  /* Channels */
+  .channels-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 3px;
+  }
+
+  .channel-card {
+    background: var(--panel);
+    padding: 32px 24px 28px;
+    text-align: center;
+  }
+
+  .channel-icon {
+    font-family: 'Fondamento', serif;
+    font-size: 32px;
+    display: block;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  .ch-1 .channel-icon { color: var(--red); }
+  .ch-2 .channel-icon { color: var(--gold); }
+  .ch-3 .channel-icon { color: #888; }
+  .ch-4 .channel-icon { color: var(--white); opacity: 0.4; }
+  .ch-5 .channel-icon { color: var(--red); opacity: 0.7; }
+
+  .channel-name {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--white);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .channel-role {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .ch-1 .channel-role { color: var(--red); }
+  .ch-2 .channel-role { color: var(--gold); }
+  .ch-3 .channel-role { color: #999; }
+  .ch-4 .channel-role { color: #999; }
+  .ch-5 .channel-role { color: var(--red); opacity: 0.8; }
+
+  .channel-desc {
+    font-size: 12px;
+    line-height: 1.8;
+    color: #ccc;
+    font-style: italic;
+  }
+
+  /* ICP cards */
+  .icp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+  }
+
+  .icp-card {
+    background: var(--panel);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    border-left: 3px solid var(--border);
+  }
+
+  .icp-card.primary   { border-left-color: var(--red); }
+  .icp-card.secondary { border-left-color: var(--gold); }
+
+  .icp-bg {
+    position: absolute;
+    right: -12px;
+    bottom: -24px;
+    font-family: 'Fondamento', serif;
+    font-size: 120px;
+    color: rgba(255,255,255,0.08);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .icp-tag {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .icp-name {
+    font-family: 'Fondamento', serif;
+    font-size: 24px;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  .icp-card.primary   .icp-name { color: var(--red); }
+  .icp-card.secondary .icp-name { color: var(--gold); }
+
+  .icp-desc {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #ccc;
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+
+  .icp-traits {
+    list-style: none;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+  }
+
+  .icp-traits li {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: #ccc;
+    padding: 6px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .icp-traits li::before {
+    content: '—';
+    color: var(--red);
+    flex-shrink: 0;
+    font-size: 9px;
+  }
+
+  .icp-card.secondary .icp-traits li::before { color: var(--gold); }
+
+  /* Content strategy table */
+  .content-table {
+    background: var(--panel);
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .content-table thead tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .content-table th {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--dim);
+    padding: 16px 24px;
+    text-align: left;
+  }
+
+  .content-table tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.2s;
+  }
+
+  .content-table tbody tr:hover { background: rgba(255,255,255,0.015); }
+
+  .content-table td {
+    padding: 18px 24px;
+    font-size: 12px;
+    line-height: 1.7;
+    vertical-align: top;
+  }
+
+  .ct-type {
+    font-family: 'Fondamento', serif;
+    font-size: 14px;
+    color: var(--white);
+  }
+
+  .ct-platform {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .ct-purpose { color: #ccc; font-style: italic; }
+
+  .ct-freq {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #bbb;
+  }
+
+  /* KPI grid */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 3px;
+  }
+
+  .kpi-cell {
+    background: var(--panel);
+    padding: 28px 16px;
+    text-align: center;
+    border-top: 2px solid var(--border);
+  }
+
+  .kpi-cell.highlight { border-top-color: var(--red); }
+  .kpi-cell.highlight-gold { border-top-color: var(--gold); }
+
+  .kpi-value {
+    font-family: 'Fondamento', serif;
+    font-size: 28px;
+    font-weight: 400;
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .kpi-cell.highlight .kpi-value { color: var(--red); }
+  .kpi-cell.highlight-gold .kpi-value { color: var(--gold); }
+  .kpi-cell:not(.highlight):not(.highlight-gold) .kpi-value { color: rgba(255,255,255,0.5); }
+
+  .kpi-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #bbb;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .kpi-timeframe {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #999;
+    display: block;
+  }
+
+  /* Voice guidelines */
+  .voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+  }
+
+  .voice-card {
+    background: var(--panel);
+    padding: 36px 32px;
+  }
+
+  .voice-card.do { border-left: 2px solid var(--gold); }
+  .voice-card.dont { border-left: 2px solid var(--red); }
+
+  .voice-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .voice-card.do .voice-title { color: var(--gold); }
+  .voice-card.dont .voice-title { color: var(--red); }
+
+  .voice-list {
+    list-style: none;
+  }
+
+  .voice-list li {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #ccc;
+    font-style: italic;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .voice-list li::before {
+    flex-shrink: 0;
+    font-style: normal;
+    font-size: 11px;
+  }
+
+  .voice-card.do .voice-list li::before { content: '✓'; color: var(--gold); }
+  .voice-card.dont .voice-list li::before { content: '✕'; color: var(--red); }
+
+  /* Proof of work cards */
+  .pow-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+  }
+
+  .pow-card {
+    background: var(--panel);
+    padding: 40px 36px;
+    border-top: 2px solid var(--border);
+  }
+
+  .pow-card.active { border-top-color: var(--red); }
+  .pow-card.secondary-active { border-top-color: var(--gold); }
+
+  .pow-num {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .pow-title {
+    font-family: 'Fondamento', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--white);
+    display: block;
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+
+  .pow-desc {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #ccc;
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+
+  .pow-details {
+    list-style: none;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  .pow-details li {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #ccc;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .pow-details li::before {
+    content: '→';
+    color: var(--red);
+    font-size: 9px;
+    flex-shrink: 0;
+  }
+
+  /* Mandate band */
+  .mandate {
+    background: var(--red);
+    padding: 44px 52px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mandate::after {
+    content: 'B';
+    position: absolute;
+    right: -20px;
+    bottom: -40px;
+    font-family: 'Fondamento', serif;
+    font-size: 200px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.08);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .mandate-num {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .mandate-title {
+    font-family: 'Fondamento', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--white);
+    display: block;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .mandate-body {
+    font-size: 12px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.85);
+    font-style: italic;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 28px;
+    margin-top: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-mark {
+    font-family: 'Fondamento', serif;
+    font-size: 22px;
+    color: rgba(255,255,255,0.12);
+    letter-spacing: 0.06em;
+  }
+  .footer-mark .b { color: var(--red); opacity: 1; }
+
+  .footer-right {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: right;
+    line-height: 2;
+  }
+
+  .ornament {
+    text-align: center;
+    font-family: 'Fondamento', serif;
+    font-size: 14px;
+    color: var(--gold);
+    opacity: 0.25;
+    letter-spacing: 0.8em;
+    margin: 56px 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="bible">
+
+  <!-- ═══════════════════════════════════════
+       COVER
+  ═══════════════════════════════════════ -->
+  <div class="cover">
+    <div class="cover-eyebrow">Master Reference Document</div>
+    <div class="cover-wordmark"><span class="b">B</span>ureau</div>
+    <div class="cover-title">Brand Bible</div>
+    <div class="cover-philosophy">From tradition, to the new.</div>
+    <div class="cover-rule"></div>
+    <div class="cover-meta">
+      Version 1.0<br>
+      Kolkata · India<br>
+      Est. 2025
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       TABLE OF CONTENTS
+  ═══════════════════════════════════════ -->
+  <div class="label">00 — Contents</div>
+  <div class="toc">
+    <div class="toc-grid">
+      <div class="toc-item">
+        <span class="toc-item-num">I</span>
+        <div>
+          <span class="toc-item-title">Brand Foundation</span>
+          <span class="toc-item-desc">Name, philosophy, positioning statement, founding narrative, and the significance of the B.</span>
+        </div>
+      </div>
+      <div class="toc-item">
+        <span class="toc-item-num">II</span>
+        <div>
+          <span class="toc-item-title">Visual Identity</span>
+          <span class="toc-item-desc">Colour system, typography, the B mark variants, and visual language principles.</span>
+        </div>
+      </div>
+      <div class="toc-item">
+        <span class="toc-item-num">III</span>
+        <div>
+          <span class="toc-item-title">Service Architecture</span>
+          <span class="toc-item-desc">Bureau Systems, Bureau Signal, Bureau Front — tiers, client journey, and pricing.</span>
+        </div>
+      </div>
+      <div class="toc-item">
+        <span class="toc-item-num">IV</span>
+        <div>
+          <span class="toc-item-title">Brand Voice</span>
+          <span class="toc-item-desc">How Bureau communicates — tone, register, and editorial guidelines.</span>
+        </div>
+      </div>
+      <div class="toc-item">
+        <span class="toc-item-num">V</span>
+        <div>
+          <span class="toc-item-title">Proof of Work</span>
+          <span class="toc-item-desc">Bureau's own digital presence — Notion showcase, social media, and website strategy.</span>
+        </div>
+      </div>
+      <div class="toc-item">
+        <span class="toc-item-num">VI</span>
+        <div>
+          <span class="toc-item-title">Go-to-Market</span>
+          <span class="toc-item-desc">Client profiles, launch phases, acquisition channels, content strategy, and success metrics.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       CHAPTER I — BRAND FOUNDATION
+  ═══════════════════════════════════════ -->
+  <div class="chapter">
+    <span class="chapter-num">I</span>
+    <div class="chapter-title">Brand Foundation</div>
+    <div class="chapter-subtitle">The decisions that everything else is built upon — name, philosophy, positioning, and the founding narrative that gives Bureau its reason to exist.</div>
+  </div>
+
+  <div class="label">01 — Name & Philosophy</div>
+  <div class="kv-grid">
+    <div class="kv-card">
+      <span class="kv-label">Brand Name</span>
+      <span class="kv-value">Bureau</span>
+      <span class="kv-desc">A French word used in English that carries institutional authority, quiet confidence, and a sense that serious, organised work happens here. For an agency whose anchor service is building operational systems, the name is conceptually precise.</span>
+    </div>
+    <div class="kv-card">
+      <span class="kv-label">Brand Philosophy</span>
+      <span class="kv-value" style="font-style: italic;">From tradition, to the new.</span>
+      <span class="kv-desc">Five words that declare where Bureau comes from and where it is taking its clients. Not a commercial tagline — a declaration of intent, rooted in the Bengali Renaissance conviction that heritage and progress are the same impulse.</span>
+    </div>
+  </div>
+
+  <div class="label">02 — The Significance of B</div>
+  <div class="mandate">
+    <div class="mandate-item">
+      <span class="mandate-num">Layer I</span>
+      <span class="mandate-title">B for Bureau.</span>
+      <div class="mandate-body">The agency itself. A place where serious, high-quality work gets done with institutional precision.</div>
+    </div>
+    <div class="mandate-item">
+      <span class="mandate-num">Layer II</span>
+      <span class="mandate-title">B for Bengal.</span>
+      <div class="mandate-body">Built in Kolkata, in the tradition of Bengali intellectual rigour and creative excellence — Tagore, Bose, Vivekananda — for the world.</div>
+    </div>
+    <div class="mandate-item">
+      <span class="mandate-num">Layer III</span>
+      <span class="mandate-title">B for Bose.</span>
+      <div class="mandate-body">The founder's surname. A personal thread that rewards those who discover it, without being obvious to those who don't.</div>
+    </div>
+  </div>
+
+  <div class="label">03 — Positioning Statement</div>
+  <div class="band">
+    <div class="band-text">
+      Bureau is a digital operations partner for individuals and businesses who refuse to settle for ordinary. We handle the systems, the presence, and the brand — so our clients can focus entirely on what they do best. Every engagement is built to a single standard: the highest one.
+    </div>
+  </div>
+
+  <div class="label">04 — Founding Narrative</div>
+  <div class="kv-grid">
+    <div class="kv-card kv-full">
+      <span class="kv-label">Origin Story</span>
+      <span class="kv-desc">Bureau is not just built in Kolkata — it is built in the tradition of a Bengal that produced Tagore, Netaji Subhas Chandra Bose, and Swami Vivekananda. A Bengal that has always been the intellectual and creative capital of the subcontinent. The Bengali Renaissance of the 19th and early 20th centuries was defined by one central idea: that deep intellectual rigour and radical modernity were not opposites — they were the same impulse. Bureau carries that same conviction into modern business. The heritage angle functions the way a great suit's lining works — it is there, it is intentional, it means something to the person wearing it, but it is not what the room sees first. The room sees the cut, the quality, and the confidence.</span>
+    </div>
+  </div>
+
+  <div class="label">05 — Core Positioning Decisions</div>
+  <div class="kv-grid">
+    <div class="kv-card">
+      <span class="kv-label">Pricing Strategy</span>
+      <span class="kv-value">Launch-Phase Accessible</span>
+      <span class="kv-desc">Pricing is calibrated to the Kolkata market at launch — competitive enough to remove the cost objection, high enough to signal this is not commodity work. Prices are reviewed upward after the first three case studies. Premium perception is permanent; budget pricing is temporary.</span>
+    </div>
+    <div class="kv-card">
+      <span class="kv-label">Anchor Service</span>
+      <span class="kv-value">Notion (Bureau Systems)</span>
+      <span class="kv-desc">Notion is the lead service that opens the door with clients. The Indian market gap is genuine — lower competition, a clear educational angle to own, and a strong word-of-mouth flywheel. Digital marketing and website building are the natural upsell once Bureau is already inside a client's business.</span>
+    </div>
+    <div class="kv-card">
+      <span class="kv-label">Client Relationship Model</span>
+      <span class="kv-value">Trusted Partner</span>
+      <span class="kv-desc">Bureau is not a vendor or a contractor. It is a trusted operational partner who works quietly and brilliantly in the background so the client can focus entirely on being the best version of themselves and their business. Relationship model, not transaction model.</span>
+    </div>
+    <div class="kv-card">
+      <span class="kv-label">Founder Identity</span>
+      <span class="kv-value">Anonymous by Design</span>
+      <span class="kv-desc">The founder's personal identity is kept deliberately in the background. Bureau leads with its work and quality, not the founder's name or social presence. The identity is revealed naturally when a client books a consultation — not before.</span>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+
+  <!-- ═══════════════════════════════════════
+       CHAPTER II — VISUAL IDENTITY
+  ═══════════════════════════════════════ -->
+  <div class="chapter">
+    <span class="chapter-num">II</span>
+    <div class="chapter-title">Visual Identity</div>
+    <div class="chapter-subtitle">The aesthetic language of Bureau — colour, typography, the B mark, and the principles that govern how Bureau looks and feels across every touchpoint.</div>
+  </div>
+
+  <div class="label">01 — Colour System</div>
+  <div class="colour-row">
+    <div class="swatch sw-black">
+      <span class="swatch-label">Pitch Black</span>
+      <span class="swatch-hex">#080808</span>
+      <span class="swatch-usage">Primary background. All surfaces, panels, and negative space.</span>
+    </div>
+    <div class="swatch sw-red">
+      <span class="swatch-label">Dark Blood</span>
+      <span class="swatch-hex">#8B0000</span>
+      <span class="swatch-usage">Primary accent. The B mark, borders, highlights, and key identity elements.</span>
+    </div>
+    <div class="swatch sw-gold">
+      <span class="swatch-label">Warm Gold</span>
+      <span class="swatch-hex">#E8B800</span>
+      <span class="swatch-usage">Secondary accent. Eyebrows, labels, and heritage-referencing detail.</span>
+    </div>
+    <div class="swatch sw-white">
+      <span class="swatch-label">White</span>
+      <span class="swatch-hex">#F5F5F5</span>
+      <span class="swatch-usage">Text and contrast. Headlines, body copy on dark, and clean space.</span>
+    </div>
+  </div>
+
+  <div class="label">02 — The B Mark</div>
+  <div class="bmark-row">
+    <div class="bmark-card bmark-primary">
+      <span class="bmark-b" style="color:#080808;">B</span>
+      <span class="bmark-ureau" style="color:#F5F5F5;">ureau</span>
+      <span class="bmark-usage">Primary · Red Ground</span>
+    </div>
+    <div class="bmark-card bmark-secondary">
+      <span class="bmark-b" style="color:#8B0000;">B</span>
+      <span class="bmark-ureau" style="color:#F5F5F5;">ureau</span>
+      <span class="bmark-usage">Secondary · Dark Ground</span>
+    </div>
+    <div class="bmark-card bmark-accent">
+      <span class="bmark-b" style="color:#8B0000;">B</span>
+      <span class="bmark-ureau" style="color:#E8B800;">ureau</span>
+      <span class="bmark-usage">Accent · Gold Variant</span>
+    </div>
+  </div>
+
+  <div class="label">03 — Typography</div>
+
+  <div class="type-block">
+    <div class="type-specimen"><span class="b">B</span>ureau</div>
+    <div class="type-info">
+      <span class="type-name">Fondamento</span>
+      <span class="type-role">Display face. Calligraphic serif with manuscript authority. Used for all headlines, wordmarks, and large-scale type.</span>
+    </div>
+  </div>
+
+  <div class="type-block-body">
+    <div class="type-specimen-body">
+      Bureau is a digital operations partner for individuals and businesses who refuse to settle for ordinary. We handle the systems, the presence, and the brand — so our clients can focus entirely on what they do best.
+    </div>
+    <div class="type-info">
+      <span class="type-name">Libre Baskerville</span>
+      <span class="type-role">Body face. Classical editorial weight. Anglo-Indian newspaper and literary register. Used for all body copy and secondary text.</span>
+    </div>
+  </div>
+
+  <div class="type-block-ui">
+    <div class="type-specimen-ui">Bureau Systems · Bureau Signal · Bureau Front</div>
+    <div class="type-info">
+      <span class="type-name">Outfit</span>
+      <span class="type-role">UI face. Clean sans-serif. Used for labels, navigation, metadata, and all functional text.</span>
+    </div>
+  </div>
+
+  <div class="label">04 — Visual Language Principles</div>
+  <div class="kv-grid">
+    <div class="kv-card">
+      <span class="kv-label">Spatial Philosophy</span>
+      <span class="kv-value">Restraint as Authority</span>
+      <span class="kv-desc">Generous whitespace. Nothing crowded, nothing cluttered. The space between elements communicates as much as the elements themselves. Bureau's visual language should always feel like it has room to breathe.</span>
+    </div>
+    <div class="kv-card">
+      <span class="kv-label">Texture</span>
+      <span class="kv-value">Grain & Depth</span>
+      <span class="kv-desc">Subtle film-grain overlays, dark panel backgrounds, and minimal borders that create a sense of material depth. Bureau should feel tactile and considered — not flat or sterile.</span>
+    </div>
+    <div class="kv-card">
+      <span class="kv-label">Hierarchy</span>
+      <span class="kv-value">Clear & Deliberate</span>
+      <span class="kv-desc">Every piece of visual communication should have one clear focal point. Headlines in Fondamento draw the eye. Body in Libre Baskerville carries the substance. Outfit labels provide structure. No level competes with another.</span>
+    </div>
+    <div class="kv-card">
+      <span class="kv-label">Cultural Register</span>
+      <span class="kv-value">Anglo-Indian Editorial</span>
+      <span class="kv-desc">The aesthetic sits at the intersection of British institutional confidence, Bengali intellectual heritage, and modern digital restraint. Think: a Kolkata literary journal designed for a global audience in 2025.</span>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+
+  <!-- ═══════════════════════════════════════
+       CHAPTER III — SERVICE ARCHITECTURE
+  ═══════════════════════════════════════ -->
+  <div class="chapter">
+    <span class="chapter-num">III</span>
+    <div class="chapter-title">Service Architecture</div>
+    <div class="chapter-subtitle">Three practices. One standard. How Bureau packages, names, and delivers what it sells — and how each service leads naturally to the next.</div>
+  </div>
+
+  <div class="label">01 — The Three Practices</div>
+  <div class="services-grid">
+
+    <!-- SYSTEMS -->
+    <div class="service-card sc-systems">
+      <span class="service-bg-letter">S</span>
+      <span class="service-num">Practice I</span>
+      <span class="service-name">Bureau Systems</span>
+      <p class="service-tagline">
+        Your business, structured with intelligence. We build the operational architecture that runs behind great companies — on Notion.
+      </p>
+      <div class="tier-block">
+        <div class="tier">
+          <div class="tier-name">
+            <span class="tier-dot dot-red"></span>
+            Blueprints
+          </div>
+          <div class="tier-desc">Ready-made Notion templates. Available immediately. For freelancers, founders, and individuals who need structure fast.</div>
+        </div>
+        <div class="tier">
+          <div class="tier-name">
+            <span class="tier-dot dot-red"></span>
+            Bespoke
+          </div>
+          <div class="tier-desc">Fully custom Notion OS built from scratch. For businesses with specific operational needs and the ambition to match.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGNAL -->
+    <div class="service-card sc-signal">
+      <span class="service-bg-letter">S</span>
+      <span class="service-num">Practice II</span>
+      <span class="service-name">Bureau Signal</span>
+      <p class="service-tagline">
+        Your brand, speaking with clarity and conviction. AI-assisted strategy, content direction, and full campaign management.
+      </p>
+      <div class="tier-block">
+        <div class="tier">
+          <div class="tier-name">
+            <span class="tier-dot dot-gold"></span>
+            Direction
+          </div>
+          <div class="tier-desc">Strategy and roadmap only. Bureau defines the what and the why — the client executes. For brands with internal capacity.</div>
+        </div>
+        <div class="tier">
+          <div class="tier-name">
+            <span class="tier-dot dot-gold"></span>
+            Command
+          </div>
+          <div class="tier-desc">Full social media and campaign management. Bureau runs it entirely. The higher-retainer, ongoing relationship model.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FRONT -->
+    <div class="service-card sc-front">
+      <span class="service-bg-letter">F</span>
+      <span class="service-num">Practice III</span>
+      <span class="service-name">Bureau Front</span>
+      <p class="service-tagline">
+        Your digital presence, built to the standard your brand deserves. From build to hosting — handled entirely by Bureau.
+      </p>
+      <div class="tier-block">
+        <div class="tier">
+          <div class="tier-name">
+            <span class="tier-dot dot-white"></span>
+            Build
+          </div>
+          <div class="tier-desc">Website design and development on Wix. Fast, polished, and built to reflect the full ambition of the client's brand.</div>
+        </div>
+        <div class="tier">
+          <div class="tier-name">
+            <span class="tier-dot dot-white"></span>
+            Host & Maintain
+          </div>
+          <div class="tier-desc">Hosting setup via Vercel or GoDaddy. Ongoing support so the client never has to touch the technical side themselves.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="label">02 — The Client Journey</div>
+  <div class="journey-flow">
+    <div class="journey-step j1">
+      <span class="journey-step-num">I</span>
+      <span class="journey-step-label">Entry Point</span>
+      <span class="journey-step-service">Bureau Systems</span>
+      <span class="journey-step-desc">The client's first experience of Bureau. The most tangible and immediately valuable service — their operational world, structured.</span>
+    </div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step j2">
+      <span class="journey-step-num">II</span>
+      <span class="journey-step-label">Natural Progression</span>
+      <span class="journey-step-service">Bureau Signal</span>
+      <span class="journey-step-desc">Once inside the client's operations, the conversation opens naturally — does their marketing reflect the clarity of their systems?</span>
+    </div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step j3">
+      <span class="journey-step-num">III</span>
+      <span class="journey-step-label">Complete Picture</span>
+      <span class="journey-step-service">Bureau Front</span>
+      <span class="journey-step-desc">The final layer. Does their digital face match everything Bureau has built behind the scenes? If not — it should.</span>
+    </div>
+  </div>
+
+  <div class="label">03 — Pricing Tiers · Launch Phase</div>
+  <div class="pricing-row">
+    <div class="price-cell pc-1">
+      <span class="price-tier">Systems · Blueprints</span>
+      <span class="price-amount">₹499–<br>₹2,999</span>
+      <span class="price-note">Per template. One-time purchase.</span>
+    </div>
+    <div class="price-cell pc-2">
+      <span class="price-tier">Systems · Bespoke</span>
+      <span class="price-amount">₹8,000–<br>₹25,000</span>
+      <span class="price-note">Per project. Based on scope and complexity.</span>
+    </div>
+    <div class="price-cell pc-3">
+      <span class="price-tier">Signal · Direction</span>
+      <span class="price-amount">₹5,000–<br>₹12,000</span>
+      <span class="price-note">Per month. Strategy and roadmap delivery.</span>
+    </div>
+    <div class="price-cell pc-4">
+      <span class="price-tier">Signal · Command</span>
+      <span class="price-amount">₹15,000–<br>₹35,000</span>
+      <span class="price-note">Per month. Full campaign management.</span>
+    </div>
+    <div class="price-cell pc-5">
+      <span class="price-tier">Front · Build & Host</span>
+      <span class="price-amount">₹12,000–<br>₹40,000</span>
+      <span class="price-note">Per project. Includes hosting setup.</span>
+    </div>
+  </div>
+
+  <div class="label">04 — Upsell Architecture</div>
+  <div class="kv-grid">
+    <div class="kv-card kv-full">
+      <span class="kv-label">The Door-to-Door Model</span>
+      <span class="kv-desc">Bureau is not designed for one-time transactions. Every engagement is structured to open the next door. A client who buys a Blueprint is shown what Bespoke looks like. A client with a Bespoke OS is asked if their brand reflects it. A client whose brand is defined is asked if their website matches. The complete Bureau client — engaging all three practices — is the long-term goal of every relationship.</span>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+
+  <!-- ═══════════════════════════════════════
+       CHAPTER IV — BRAND VOICE
+  ═══════════════════════════════════════ -->
+  <div class="chapter">
+    <span class="chapter-num">IV</span>
+    <div class="chapter-title">Brand Voice</div>
+    <div class="chapter-subtitle">How Bureau communicates — the tone, register, and editorial principles that govern every piece of text Bureau puts into the world.</div>
+  </div>
+
+  <div class="label">01 — Voice Character</div>
+  <div class="kv-grid">
+    <div class="kv-card">
+      <span class="kv-label">Register</span>
+      <span class="kv-value">Quietly Confident</span>
+      <span class="kv-desc">Bureau never shouts, oversells, or uses exclamation marks. The voice is the written equivalent of someone who speaks precisely, listens carefully, and does not need to raise their volume to command a room.</span>
+    </div>
+    <div class="kv-card">
+      <span class="kv-label">Tone</span>
+      <span class="kv-value">Warm Authority</span>
+      <span class="kv-desc">Not cold or corporate. Not informal or casual. Bureau writes as a considered professional would speak to a respected peer — direct, clear, intelligent, and without unnecessary filler.</span>
+    </div>
+    <div class="kv-card">
+      <span class="kv-label">Cultural Undercurrent</span>
+      <span class="kv-value">Anglo-Indian Literary</span>
+      <span class="kv-desc">The writing carries the weight of the Bhadralok tradition — educated, cultured, and cosmopolitan. This shows up in word choices, sentence rhythm, and a preference for precision over cleverness.</span>
+    </div>
+    <div class="kv-card">
+      <span class="kv-label">Perspective</span>
+      <span class="kv-value">Always First-Person Plural</span>
+      <span class="kv-desc">Bureau is "we," never "I." Even as a solo operation, the brand speaks as an institution. This maintains the partnership positioning and avoids the freelancer perception entirely.</span>
+    </div>
+  </div>
+
+  <div class="label">02 — Editorial Guidelines</div>
+  <div class="voice-grid">
+    <div class="voice-card do">
+      <span class="voice-title">Bureau Does</span>
+      <ul class="voice-list">
+        <li>Use precise, considered language — every word earns its place</li>
+        <li>Write in full sentences with proper punctuation and grammar</li>
+        <li>Use em dashes for emphasis — they carry authority</li>
+        <li>Lead with the value to the client, not the feature being sold</li>
+        <li>Reference quality, rigour, craft, and standards naturally</li>
+        <li>Let the work demonstrate what the copy claims</li>
+        <li>Use "Built in Kolkata, for the world" as the founding line — not a tagline</li>
+      </ul>
+    </div>
+    <div class="voice-card dont">
+      <span class="voice-title">Bureau Does Not</span>
+      <ul class="voice-list">
+        <li>Use exclamation marks, hype language, or urgency tactics</li>
+        <li>Say "we're the best" — Bureau shows, it does not tell</li>
+        <li>Use emoji in any professional communication or branded content</li>
+        <li>Reference the Alfred/Batman metaphor externally — it is internal only</li>
+        <li>Make the Bengali identity the headline — it is the lining, not the suit</li>
+        <li>Use jargon, buzzwords, or agency-speak ("synergy," "leverage," "ideation")</li>
+        <li>Discount or apologise for pricing — the work justifies the cost</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+
+  <!-- ═══════════════════════════════════════
+       CHAPTER V — PROOF OF WORK
+  ═══════════════════════════════════════ -->
+  <div class="chapter">
+    <span class="chapter-num">V</span>
+    <div class="chapter-title">Proof of Work</div>
+    <div class="chapter-subtitle">Bureau's own digital presence is its primary portfolio. Before any client is approached, Bureau must have something to show. This chapter defines exactly what that looks like.</div>
+  </div>
+
+  <div class="label">01 — The Four Pillars of Proof</div>
+  <div class="pow-grid">
+    <div class="pow-card active">
+      <span class="pow-num">Pillar I</span>
+      <span class="pow-title">Notion Showcase</span>
+      <span class="pow-desc">A separate, purpose-built Notion workspace designed to impress clients — not Bureau's actual internal system. Publicly shareable and visually polished.</span>
+      <ul class="pow-details">
+        <li>Clean, visually striking workspace that demonstrates Bureau Systems capability</li>
+        <li>Multiple views: dashboard, project tracker, CRM, knowledge base</li>
+        <li>Shareable link for prospective clients during consultations</li>
+        <li>Updated regularly with new structures and approaches</li>
+      </ul>
+    </div>
+    <div class="pow-card active">
+      <span class="pow-num">Pillar II</span>
+      <span class="pow-title">Instagram Presence</span>
+      <span class="pow-desc">The Bureau feed is the portfolio. Every post is a case study, a process reveal, or a perspective. Kolkata businesses discover Bureau here.</span>
+      <ul class="pow-details">
+        <li>6 foundational posts published before the first follow request</li>
+        <li>Consistent posting: 3× per week minimum during Phase 2</li>
+        <li>Content types: Notion showcases, process reveals, brand perspectives</li>
+        <li>Aesthetic matches the brand identity — dark, premium, editorial</li>
+      </ul>
+    </div>
+    <div class="pow-card secondary-active">
+      <span class="pow-num">Pillar III</span>
+      <span class="pow-title">LinkedIn Authority</span>
+      <span class="pow-desc">Long-form content on operations, systems thinking, and brand. Targets the founder and the decision-maker. Slower burn, higher intent.</span>
+      <ul class="pow-details">
+        <li>Bureau LinkedIn page with positioning statement and first post</li>
+        <li>1 article per fortnight on operations and brand — starting Phase 3</li>
+        <li>Deep dives on Kolkata's business landscape and operational excellence</li>
+        <li>Targets founders and senior professionals</li>
+      </ul>
+    </div>
+    <div class="pow-card secondary-active">
+      <span class="pow-num">Pillar IV</span>
+      <span class="pow-title">Bureau Website</span>
+      <span class="pow-desc">A sharp single-page presence that covers who Bureau is, what it offers, and how to get in touch — built on Wix, with the full site expanding as the brand grows.</span>
+      <ul class="pow-details">
+        <li>Hero section with philosophy and positioning</li>
+        <li>Three services explained clearly</li>
+        <li>Contact form for enquiries</li>
+        <li>Design matches the brand board exactly — Bureau's own proof of Bureau Front</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="label">02 — Build Sequence</div>
+  <div class="phase-row">
+    <div class="phase-card ph-1">
+      <div class="phase-header">
+        <span class="phase-num">I</span>
+        <span class="phase-period">Week 1–2</span>
+        <span class="phase-name">Build the proof.</span>
+        <div class="phase-goal">Before Bureau speaks to anyone, Bureau must have something to show.</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Build the Notion showcase workspace</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Publish the Bureau website on Wix</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Create first two Blueprints templates</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Open Bureau Instagram with 6 foundational posts</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-card ph-2">
+      <div class="phase-header">
+        <span class="phase-num">II</span>
+        <span class="phase-period">Week 3–4</span>
+        <span class="phase-name">Go live.</span>
+        <div class="phase-goal">Begin posting consistently and set up the LinkedIn presence.</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Set up Bureau LinkedIn page</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Begin 3× weekly Instagram posting</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Join Notion Creators community</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Define the intake process — lead → brief → project</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-card ph-3">
+      <div class="phase-header">
+        <span class="phase-num">III</span>
+        <span class="phase-period">Month 2 Onward</span>
+        <span class="phase-name">Start outreach.</span>
+        <div class="phase-goal">With proof in place, Bureau can now approach clients with confidence.</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Identify first 3 target businesses in Kolkata</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Offer Bureau Systems audit — free conversation, paid engagement</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Deliver at an unusually high standard — quality is the strategy</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Ask for one referral from each satisfied client</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+
+  <!-- ═══════════════════════════════════════
+       CHAPTER VI — GO-TO-MARKET
+  ═══════════════════════════════════════ -->
+  <div class="chapter">
+    <span class="chapter-num">VI</span>
+    <div class="chapter-title">Go-to-Market</div>
+    <div class="chapter-subtitle">How Bureau enters the market — who it speaks to first, through which channels, in what sequence, and with what success looks like clearly defined.</div>
+  </div>
+
+  <div class="label">01 — The Three Mandates</div>
+  <div class="mandate">
+    <div class="mandate-item">
+      <span class="mandate-num">Mandate I</span>
+      <span class="mandate-title">Build the proof before the pitch.</span>
+      <div class="mandate-body">No cold outreach without visible work. The Notion showcase, the Instagram feed, and the website must exist before Bureau speaks to anyone.</div>
+    </div>
+    <div class="mandate-item">
+      <span class="mandate-num">Mandate II</span>
+      <span class="mandate-title">Start local. Scale without limits.</span>
+      <div class="mandate-body">Kolkata is the anchor. The first clients, the first case studies, and the first trust are built here — then the work travels.</div>
+    </div>
+    <div class="mandate-item">
+      <span class="mandate-num">Mandate III</span>
+      <span class="mandate-title">Let the work do the talking.</span>
+      <div class="mandate-body">Bureau's marketing is Bureau's work — the feed, the documents, the templates. Every output is a portfolio piece before it is a product.</div>
+    </div>
+  </div>
+
+  <div class="label">02 — Ideal Client Profile</div>
+  <div class="icp-grid">
+    <div class="icp-card primary">
+      <span class="icp-bg">I</span>
+      <span class="icp-tag">Primary Profile · Launch Phase</span>
+      <span class="icp-name">The Ambitious Founder</span>
+      <p class="icp-desc">
+        Early-stage business owners and solo operators in Kolkata — running real businesses but doing everything manually. They have the ambition but not the infrastructure. Systems are the entry point; Signal and Front follow naturally.
+      </p>
+      <ul class="icp-traits">
+        <li>0–5 years in business, operating without formal systems</li>
+        <li>Relying on WhatsApp, notebooks, or scattered spreadsheets</li>
+        <li>Aware their brand presence doesn't match their actual quality</li>
+        <li>Budget-conscious but willing to invest when value is clear</li>
+        <li>Likely in: consulting, coaching, F&amp;B, retail, creative services</li>
+        <li>Referral-driven — one good client becomes three</li>
+      </ul>
+    </div>
+    <div class="icp-card secondary">
+      <span class="icp-bg">II</span>
+      <span class="icp-tag">Secondary Profile · Online Reach</span>
+      <span class="icp-name">The Notion-Curious Professional</span>
+      <p class="icp-desc">
+        Freelancers, consultants, and knowledge workers anywhere in India who have discovered Notion but can't get it to work for them. They find Bureau through templates, content, and the Notion community — and may never meet in person.
+      </p>
+      <ul class="icp-traits">
+        <li>Remote-first, digitally fluent, India-wide</li>
+        <li>Already trying to self-build their operating system</li>
+        <li>Willing to pay for a template that saves them weeks of work</li>
+        <li>Entry via Blueprints; upsell path to Bespoke is natural</li>
+        <li>Likely in: design, writing, development, education, finance</li>
+        <li>Feeds Bureau's passive income and national reputation</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="label">03 — Launch Phases</div>
+  <div class="phase-row">
+    <div class="phase-card ph-1">
+      <div class="phase-header">
+        <span class="phase-num">I</span>
+        <span class="phase-period">Month 1 — Foundation</span>
+        <span class="phase-name">Build the proof.</span>
+        <div class="phase-goal">Before Bureau speaks to anyone, Bureau must have something to show. This phase is entirely production — no outreach.</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Publish the Bureau website on Wix — hero, three services, contact form</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Launch the showcase Notion workspace — publicly shareable, visually polished</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Open Bureau Instagram — post 6 foundational content pieces before the first follow request</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Create and list the first two Blueprints templates — priced to sell</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Set up the Bureau LinkedIn page with positioning statement and first post</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Define the intake process — how a lead becomes a brief becomes a project</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-card ph-2">
+      <div class="phase-header">
+        <span class="phase-num">II</span>
+        <span class="phase-period">Months 2–3 — First Clients</span>
+        <span class="phase-name">Earn the first three.</span>
+        <div class="phase-goal">Outreach begins — but carefully. The first three clients are chosen, not acquired. They become Bureau's proof of concept.</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Identify 3 businesses in Kolkata personally — warm connections or observed gaps</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Offer a Bureau Systems audit — free initial conversation, paid engagement if there's fit</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Deliver at an unusually high standard — the quality of the work is the strategy</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Ask for one referral from each satisfied client — not a testimonial, a referral</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Begin posting on Instagram consistently — 3 posts per week minimum</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Join and contribute to the Notion Creators community — presence, not promotion</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-card ph-3">
+      <div class="phase-header">
+        <span class="phase-num">III</span>
+        <span class="phase-period">Months 4–6 — Compounding</span>
+        <span class="phase-name">Let it compound.</span>
+        <div class="phase-goal">By this point, Bureau has case studies, a live feed, and a reputation beginning to form. The goal is to systematise what's working.</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Publish the first Bureau case study — Notion workspace before/after, documented</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Expand Blueprints to 4–6 templates across different use cases</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Introduce Bureau Signal to existing Systems clients — natural conversation</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Begin LinkedIn long-form content — 1 article per fortnight on operations &amp; brand</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Reassess pricing — raise Bespoke floor if demand justifies it</div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot"></div>
+          <div class="phase-item-text">Target a second city — Mumbai or Bengaluru — for one Bespoke engagement</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="label">04 — Acquisition Channels</div>
+  <div class="channels-grid">
+    <div class="channel-card ch-1">
+      <span class="channel-icon">Ig</span>
+      <span class="channel-name">Instagram</span>
+      <span class="channel-role">Primary · Brand Building</span>
+      <p class="channel-desc">The Bureau feed is the portfolio. Every post is a case study, a process reveal, or a perspective. Kolkata businesses discover Bureau here.</p>
+    </div>
+    <div class="channel-card ch-2">
+      <span class="channel-icon">In</span>
+      <span class="channel-name">LinkedIn</span>
+      <span class="channel-role">Primary · Authority</span>
+      <p class="channel-desc">Long-form content on operations, systems thinking, and brand. Targets the founder and the decision-maker. Slower burn, higher intent.</p>
+    </div>
+    <div class="channel-card ch-3">
+      <span class="channel-icon">No</span>
+      <span class="channel-name">Notion Community</span>
+      <span class="channel-role">Secondary · Templates</span>
+      <p class="channel-desc">Genuine participation in Notion's creator ecosystem. The Blueprints templates are listed and discoverable. Passive inbound for Systems.</p>
+    </div>
+    <div class="channel-card ch-4">
+      <span class="channel-icon">⟡</span>
+      <span class="channel-name">Word of Mouth</span>
+      <span class="channel-role">Tertiary · Highest Value</span>
+      <p class="channel-desc">The most important channel, and the one Bureau cannot engineer — only earn. The first three clients, done extraordinarily well, build this.</p>
+    </div>
+    <div class="channel-card ch-5">
+      <span class="channel-icon">Bw</span>
+      <span class="channel-name">Bureau Website</span>
+      <span class="channel-role">Anchor · Live Portfolio</span>
+      <p class="channel-desc">The website is not just a contact page — it is a showcase. Every service explained, every standard demonstrated, built on Wix to Bureau's own brief.</p>
+    </div>
+  </div>
+
+  <div class="label">05 — Content Strategy</div>
+  <table class="content-table">
+    <thead>
+      <tr>
+        <th>Content Type</th>
+        <th>Platform</th>
+        <th>Purpose</th>
+        <th>Frequency</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="ct-type">The Notion Showcase</span></td>
+        <td><span class="ct-platform">Instagram + Notion</span></td>
+        <td><span class="ct-purpose">Proof of craft. Shows what a Bureau-built workspace actually looks like. The most direct conversion tool.</span></td>
+        <td><span class="ct-freq">Ongoing — updated with every new build</span></td>
+      </tr>
+      <tr>
+        <td><span class="ct-type">Process Reveals</span></td>
+        <td><span class="ct-platform">Instagram Reels</span></td>
+        <td><span class="ct-purpose">Short videos showing a messy client situation being structured. Highly shareable. Builds desire and demonstrates value simultaneously.</span></td>
+        <td><span class="ct-freq">1× per week</span></td>
+      </tr>
+      <tr>
+        <td><span class="ct-type">Brand Perspectives</span></td>
+        <td><span class="ct-platform">Instagram Carousel</span></td>
+        <td><span class="ct-purpose">Bureau's point of view on operations, brand, and what good looks like. Positions Bureau as an authority, not just a vendor.</span></td>
+        <td><span class="ct-freq">2× per week</span></td>
+      </tr>
+      <tr>
+        <td><span class="ct-type">Long-form Articles</span></td>
+        <td><span class="ct-platform">LinkedIn</span></td>
+        <td><span class="ct-purpose">Deep dives on systems thinking, Kolkata's business landscape, and operational excellence. Targets founders and senior professionals.</span></td>
+        <td><span class="ct-freq">1× per fortnight</span></td>
+      </tr>
+      <tr>
+        <td><span class="ct-type">Template Drops</span></td>
+        <td><span class="ct-platform">Instagram + Notion</span></td>
+        <td><span class="ct-purpose">New Blueprints announced with full visual breakdown. Creates event-like moments and drives template revenue passively.</span></td>
+        <td><span class="ct-freq">1× per month</span></td>
+      </tr>
+      <tr>
+        <td><span class="ct-type">Case Studies</span></td>
+        <td><span class="ct-platform">LinkedIn + Website</span></td>
+        <td><span class="ct-purpose">Client work documented in depth — the problem, the approach, the outcome. The highest-converting content Bureau can produce.</span></td>
+        <td><span class="ct-freq">1× per client engagement</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="label">06 — Success Metrics · Month 6</div>
+  <div class="kpi-grid">
+    <div class="kpi-cell highlight">
+      <span class="kpi-value">3</span>
+      <span class="kpi-label">Bespoke Clients</span>
+      <span class="kpi-timeframe">Kolkata, completed</span>
+    </div>
+    <div class="kpi-cell highlight">
+      <span class="kpi-value">6</span>
+      <span class="kpi-label">Blueprints Listed</span>
+      <span class="kpi-timeframe">Notion community</span>
+    </div>
+    <div class="kpi-cell highlight-gold">
+      <span class="kpi-value">₹1.2L</span>
+      <span class="kpi-label">Monthly Revenue</span>
+      <span class="kpi-timeframe">Target by month 6</span>
+    </div>
+    <div class="kpi-cell highlight-gold">
+      <span class="kpi-value">1K</span>
+      <span class="kpi-label">Instagram Followers</span>
+      <span class="kpi-timeframe">Engaged, not inflated</span>
+    </div>
+    <div class="kpi-cell">
+      <span class="kpi-value">1</span>
+      <span class="kpi-label">Signal Client</span>
+      <span class="kpi-timeframe">Upsell from Systems</span>
+    </div>
+    <div class="kpi-cell">
+      <span class="kpi-value">1</span>
+      <span class="kpi-label">City Expanded</span>
+      <span class="kpi-timeframe">Mumbai or Bengaluru</span>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- CLOSING BAND -->
+  <div class="band" style="margin-top: 0;">
+    <div class="band-text">
+      Bureau does not need a hundred clients. It needs ten who tell ten more — each one arrived at because the work was done at a standard that demanded to be shared.
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-mark"><span class="b">B</span>ureau</div>
+    <div class="footer-right">
+      Built in Kolkata<br>
+      For the world
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
