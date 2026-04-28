@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PBHRC — Social Media Dashboard</title>
+
+    <!-- FontAwesome (local) -->
+    <link rel="stylesheet" href="assets/fontawesome.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Libraries -->
+    <script src="assets/xlsx.full.min.js"></script>
+    <script src="assets/chart.min.js"></script>
+    <script src="assets/papaparse.min.js"></script>
+    <script src="assets/html2canvas.min.js"></script>
+    <script src="assets/jspdf.umd.min.js"></script>
+</head>
+<body>
+<div class="app-container">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="Logo_160 Years_PBHRC.png" alt="PBHRC Logo" class="brand-logo"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <h2 class="brand-text" style="display:none;">PBHRC</h2>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item active" data-tab="tab-overview">
+                <i class="fa-solid fa-chart-pie"></i> <span>Overview</span>
+            </li>
+            <li class="nav-item" data-tab="tab-demographics">
+                <i class="fa-solid fa-users"></i> <span>Demographics</span>
+            </li>
+            <li class="nav-item" data-tab="tab-platform">
+                <i class="fa-solid fa-mobile-screen-button"></i> <span>Platform Insights</span>
+            </li>
+        </ul>
+
+        <!-- Theme Toggle -->
+        <div class="theme-toggle-wrap">
+            <div class="theme-toggle" id="theme-toggle" title="Toggle dark / light mode">
+                <span id="theme-label"><i class="fa-solid fa-moon"></i>&nbsp; Dark Mode</span>
+                <div class="toggle-pill"></div>
+            </div>
+        </div>
+
+        <div class="connection-status">
+            <div class="status-indicator" id="status-dot"></div>
+            <span id="data-status-text">Waiting for data…</span>
+        </div>
+    </aside>
+
+    <!-- ── Main Content ── -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div>
+                <h1 class="page-title">
+                    <i class="fa-solid fa-bars sidebar-toggle-btn" id="sidebar-toggle" title="Toggle Sidebar"></i>
+                    Social Media Dashboard
+                </h1>
+                <p class="subtitle">Online Patient Marketing Acquisition</p>
+            </div>
+
+            <div class="data-controls">
+                <!-- Timeframe filter (shown after data loads) -->
+                <div class="filter-group hidden" id="timeframe-wrapper">
+                    <i class="fa-regular fa-calendar" style="font-size:13px;"></i>
+                    <select id="timeframe-filter" class="select-dropdown">
+                        <option value="all">All Time</option>
+                        <option value="last30">Last 30 Days</option>
+                        <option value="2026">2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                    </select>
+                </div>
+
+                <div class="file-upload-wrapper" style="display: flex; gap: 12px; align-items: center;">
+                    <button class="action-btn upload-btn" id="btn-live-sync" title="Sync with Live Google Sheet">
+                        <i class="fa-solid fa-cloud-arrow-down"></i> Live Sync
+                    </button>
+                    <label for="excel-upload" class="action-btn upload-btn">
+                        <i class="fa-solid fa-file-excel"></i> Load Data
+                    </label>
+                    <input type="file" id="excel-upload" accept=".xlsx,.xls,.csv">
+                </div>
+
+                <button id="pdf-export-btn" class="action-btn pdf-btn hidden" onclick="exportPDF()">
+                    <i class="fa-solid fa-file-pdf"></i> Export PDF
+                </button>
+            </div>
+        </header>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="hidden">
+            <div class="spinner"></div>
+            <p>Processing patient records…</p>
+        </div>
+
+        <!-- ══ Dashboard Body (hidden until data loaded) ══ -->
+        <div id="dashboard-body" class="glass-hidden">
+
+            <!-- TAB 1: OVERVIEW -->
+            <div id="tab-overview" class="tab-pane active dashboard-grid">
+
+                <!-- Hero Stats -->
+                <div class="stats-row">
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon primary"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Consultations</h3>
+                            <h2 id="stat-total-patients">0</h2>
+                            <p class="trend">All patients who filled the form in this period</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon accent"><i class="fa-solid fa-hashtag"></i></div>
+                        <div class="stat-info">
+                            <h3>Via Social Media</h3>
+                            <h2 id="stat-social-total">0</h2>
+                            <p class="trend">Instagram, Facebook, YouTube &amp; more — <strong><span id="stat-social-percentage">0%</span></strong> of all patients</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon secondary"><i class="fa-solid fa-user-plus"></i></div>
+                        <div class="stat-info">
+                            <h3>New from Social Media</h3>
+                            <h2 id="stat-social-new">0</h2>
+                            <p class="trend">First-timers via social posts — <strong><span id="stat-social-new-pct">0%</span></strong> of SM patients</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon" style="background:rgba(245,166,35,0.12); color:var(--clr-warning);"><i class="fa-solid fa-calendar-day"></i></div>
+                        <div class="stat-info">
+                            <h3>Peak Social Day</h3>
+                            <h2 id="stat-peak-day">-</h2>
+                            <p class="trend">Weekday generating maximum social leads</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon" style="background:rgba(155,89,182,0.12); color:#9b59b6;"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="stat-info">
+                            <h3>Top Social State</h3>
+                            <h2 id="stat-top-state">-</h2>
+                            <p class="trend">Driving the highest volume of traffic</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row 1 -->
+                <div class="charts-row three-col">
+                    <div class="chart-container glass-panel">
+                        <div class="chart-header">
+                            <h3>How Patients Found Us</h3>
+                        </div>
+                        <p class="chart-desc">Breakdown by discovery channel — referrals, social media, search, etc.</p>
+                        <div class="canvas-wrapper">
+                            <canvas id="sourcePieChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container glass-panel">
+                        <div class="chart-header">
+                            <h3>Platform Breakdown</h3>
+                        </div>
+                        <p class="chart-desc">Which social platform brought them — Instagram, Facebook, YouTube, WhatsApp or LinkedIn.</p>
+                        <div class="canvas-wrapper">
+                            <canvas id="platformPieChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container glass-panel">
+                        <div class="chart-header">
+                            <h3>New vs Returning</h3>
+                        </div>
+                        <p class="chart-desc">Of social media patients, how many were brand-new vs already existing patients.</p>
+                        <div class="canvas-wrapper">
+                            <canvas id="newVSoldChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="charts-row">
+                    <div class="chart-container glass-panel timeline-container">
+                        <div class="chart-header">
+                            <h3>Patient Registration Timeline</h3>
+                        </div>
+                        <div class="canvas-wrapper timeline-canvas-wrapper">
+                            <canvas id="timelineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New vs Old Timeline -->
+                <div class="charts-row">
+                    <div class="chart-container glass-panel timeline-container">
+                        <div class="chart-header">
+                            <h3>Social Media Patient Conversions (New vs Existing) over Time</h3>
+                        </div>
+                        <p class="chart-desc">Tracking social media patients over the months broken down by whether they are new or existing patients.</p>
+                        <div class="canvas-wrapper timeline-canvas-wrapper">
+                            <canvas id="socialConversionTimelineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: DEMOGRAPHICS -->
+            <div id="tab-demographics" class="tab-pane dashboard-grid" style="display:none;">
+                <div class="charts-row three-col">
+                    <div class="chart-container glass-panel">
+                        <div class="chart-header">
+                            <h3>Gender Distribution</h3>
+                        </div>
+                        <div class="canvas-wrapper">
+                            <canvas id="genderPieChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container glass-panel">
+                        <div class="chart-header">
+                            <h3>Gender per Platform</h3>
+                        </div>
+                        <div class="canvas-wrapper">
+                            <canvas id="genderPlatformPieChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container glass-panel">
+                        <div class="chart-header">
+                            <h3>Top 10 Source Countries</h3>
+                        </div>
+                        <div class="canvas-wrapper">
+                            <canvas id="countryBarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-row">
+                    <div class="chart-container glass-panel timeline-container">
+                        <div class="chart-header">
+                            <h3>State Breakdown (India)</h3>
+                        </div>
+                        <div class="canvas-wrapper timeline-canvas-wrapper">
+                            <canvas id="stateBarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: PLATFORM INSIGHTS -->
+            <div id="tab-platform" class="tab-pane dashboard-grid" style="display: none;">
+                
+                <!-- Stat Row -->
+                <div class="stats-row">
+                    <div class="stat-card glass-panel" style="animation: pulseBorder 3s infinite;">
+                        <div class="stat-icon" style="background:rgba(230,57,70,0.12); color:#E63946;"><i class="fa-solid fa-trophy"></i></div>
+                        <div class="stat-info">
+                            <h3>Champion Platform</h3>
+                            <h2 id="stat-champion-platform">-</h2>
+                            <p class="trend">Generating maximum absolute traffic</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass-panel" style="animation: pulseBorder 3s infinite; animation-delay: 1.5s;">
+                        <div class="stat-icon" style="background:rgba(26,188,156,0.12); color:#1abc9c;"><i class="fa-solid fa-rotate-left"></i></div>
+                        <div class="stat-info">
+                            <h3>Highest Retainer</h3>
+                            <h2 id="stat-platform-retainer">-</h2>
+                            <p class="trend">Platform with most returning patients</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row 1 -->
+                <div class="charts-row two-col">
+                    <div class="chart-container glass-panel">
+                        <div class="chart-header">
+                            <h3>Platform Conversion Matrix</h3>
+                        </div>
+                        <p class="chart-desc">New vs Existing patient volume breakdown strictly across different platforms.</p>
+                        <div class="canvas-wrapper">
+                            <canvas id="platformConversionChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container glass-panel">
+                        <div class="chart-header">
+                            <h3>Social Distribution Timeline</h3>
+                        </div>
+                        <p class="chart-desc">Tracking which platforms dominate specific consecutive months.</p>
+                        <div class="canvas-wrapper">
+                            <canvas id="platformDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /dashboard-body -->
+
+        <!-- Footer -->
+        <footer id="dashboard-footer" class="dashboard-footer hidden">
+            <div class="footer-left">
+                <i class="fa-solid fa-lock"></i>&nbsp;
+                <strong>CONFIDENTIAL</strong> — For internal PBHRC use only. Unauthorised distribution is strictly prohibited.
+            </div>
+            <div class="footer-right">
+                Prepared by <strong>Ronit Bose</strong> &nbsp;|&nbsp; PBHRC Marketing &amp; Branding &nbsp;|&nbsp; <span id="footer-date"></span>
+            </div>
+        </footer>
+
+        <!-- Upload Splash -->
+        <div id="upload-splash" class="splash-state">
+            <div class="splash-content glass-panel">
+                <span class="icon-pulse">        <i class="fa-solid fa-chart-line" style="font-size: 48px; color: var(--clr-primary); margin-bottom: 24px;"></i>
+        <h2>Welcome to PBHRC Dashboard</h2>
+        <p>Drop your patient response Excel sheet here, or connect directly to your live Google Sheet.</p>
+        
+        <div style="display: flex; gap: 16px; margin-top: 32px; justify-content: center; flex-wrap: wrap;">
+            <button class="action-btn upload-btn" id="btn-live-sync-lg" style="padding: 14px 28px; font-size: 16px;">
+                <i class="fa-solid fa-cloud-arrow-down"></i> Connect Live Sheet
+            </button>
+            <div class="file-upload-wrapper">
+                <label for="excel-upload-lg" class="action-btn upload-btn" style="padding: 14px 28px; font-size: 16px;">
+                    <i class="fa-solid fa-file-excel"></i> Upload Excel File
+                </label>
+                <input type="file" id="excel-upload-lg" accept=".xlsx,.xls,.csv">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Google Sheet URL -->
+<div id="sync-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-panel">
+        <div class="modal-header">
+            <h3>Configure Live Sync</h3>
+            <i class="fa-solid fa-xmark close-modal" id="close-sync-modal"></i>
+        </div>
+        <div class="modal-body">
+            <p>Paste the <strong>CSV Publish Link</strong> from your Google Sheet here.</p>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;">
+                (File &rarr; Share &rarr; Publish to web &rarr; Format: CSV &rarr; Publish)
+            </p>
+            <input type="text" id="google-sheet-url" placeholder="https://docs.google.com/spreadsheets/d/e/2PACX-1v.../pub?output=csv" class="modal-input">
+        </div>
+        <div class="modal-footer">
+            <button class="action-btn secondary-btn" id="btn-clear-url">Clear Saved URL</button>
+            <button class="action-btn" id="btn-save-sync">Save & Sync</button>
+        </div>
+    </div>
+</div>
+
+<script src="app.js?v=3"></script>
+
+<!-- Theme Toggle + App Logic -->
+<script>
+    // ── Theme Toggle ──────────────────────────────────────────
+    (function() {
+        var html   = document.documentElement;
+        var btn    = document.getElementById('theme-toggle');
+        var label  = document.getElementById('theme-label');
+
+        function applyTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            label.innerHTML = theme === 'dark'
+                ? '<i class="fa-solid fa-moon"></i>&nbsp; Dark Mode'
+                : '<i class="fa-solid fa-sun"></i>&nbsp; Light Mode';
+
+            // Update Chart.js defaults
+            var textColor = theme === 'dark' ? '#7e95ae' : '#4a6175';
+            var gridColor = theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.06)';
+            if (typeof Chart !== 'undefined') {
+                Chart.defaults.color = textColor;
+                Chart.defaults.borderColor = gridColor;
+            }
+
+            try { localStorage.setItem('pbhrc-theme', theme); } catch(e) {}
+        }
+
+        // Load saved preference
+        var saved;
+        try { saved = localStorage.getItem('pbhrc-theme'); } catch(e) {}
+        applyTheme(saved || 'dark');
+
+        btn.addEventListener('click', function() {
+            var current = html.getAttribute('data-theme');
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+
+            // Re-render charts if data is loaded
+            if (typeof renderOverviewCharts === 'function' && typeof dashboardData !== 'undefined' && dashboardData.totalPatients > 0) {
+                setTimeout(function() {
+                    renderOverviewCharts();
+                    renderDemographicsCharts();
+                }, 50);
+            }
+        });
+    })();
+</script>
+
+<!-- App Logic -->
+<script src="app.js"></script>
+</body>
+</html>
